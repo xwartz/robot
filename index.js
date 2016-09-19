@@ -28,7 +28,7 @@ var ca = casper.create({
 })
 
 ca.on('remote.message', function (msg) {
-  this.echo('remote message caught: ' + msg, 'COMMENT')
+  this.echo(msg, 'COMMENT')
 })
 
 var count = 0
@@ -64,7 +64,7 @@ var start = function (cb) {
     form['user[email]'].value = user.email
     form['user[password]'].value = user.password
     form.submit()
-    console.log('Create a new user')
+    console.log('First, create a new user')
   }, user)
 
   // star
@@ -72,7 +72,7 @@ var start = function (cb) {
   ca.thenOpenAndEvaluate(starUrl, function () {
     var form = document.forms[4]
     form.submit()
-    console.log('Starred repo')
+    console.log('Then, star the repo')
   })
 
   // signout
@@ -80,11 +80,11 @@ var start = function (cb) {
   ca.thenOpenAndEvaluate(signoutUrl, function () {
     var form = document.forms[1]
     form.submit()
-    // console.log('Sign out')
+    // console.log('Finaly, login out')
   })
 
   ca.on('exit', function () {
-
+    // exit
   })
 
   ca.run(function () {
