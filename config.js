@@ -1,6 +1,6 @@
 module.exports = {
   username: 'xwartz',
-  repo: 'PupaFM',
-  num: 2,
-  password: 'fakefakefake1'
+  repo: 'robot',
+  num: 5,
+  password: 'robotrobot110'
 }
