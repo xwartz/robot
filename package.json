@@ -1,14 +1,13 @@
 {
-  "name": "star-robot",
+  "name": "robot",
   "version": "1.0.0",
-  "description": "Github star repo robot",
+  "description": "This a GitHub robot, just for fun.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "casperjs index.js"
   },
   "keywords": [
-    "star",
     "robot",
     "github"
   ],
