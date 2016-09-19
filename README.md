@@ -1,6 +1,6 @@
 ## robot
 
-This a GitHub robot, just for fun.
+This is a GitHub robot, just for fun.
 
 ## Usage
 
