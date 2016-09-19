@@ -1,0 +1,28 @@
+{
+  "name": "star-robot",
+  "version": "1.0.0",
+  "description": "Github star repo robot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "casperjs index.js"
+  },
+  "keywords": [
+    "star",
+    "robot",
+    "github"
+  ],
+  "author": "xwartz",
+  "license": "ISC",
+  "dependencies": {
+    "casperjs": "^1.1.3",
+    "phantomjs-prebuilt": "^2.1.12",
+    "random-js": "^1.0.8"
+  },
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-standard": "^6.0.1",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0"
+  }
+}
