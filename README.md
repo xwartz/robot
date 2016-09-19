@@ -8,7 +8,7 @@ First, install dependencies
 
 `$ npm i`
 
-And then edit [config]('./config.js')
+And then edit [config](./config.js)
 
 Finaly, just run
 
