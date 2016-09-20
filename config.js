@@ -1,5 +1,7 @@
 module.exports = {
   username: 'xwartz',
-  repo: 'robot',
-  num: 1
+  repo: 'PupaFM',
+  num: 2,
+  // 头像，本地路径
+  avatars: ['/Users/feibai/ri/1.png', '/Users/feibai/ri/2.png']
 }

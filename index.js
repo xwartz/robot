@@ -16,6 +16,7 @@ var sleep = function (time) {
 var susername = config.username
 var srepo = config.repo
 var snum = config.num
+var avatars = config.avatars
 
 // var password = config.password
 
@@ -70,7 +71,7 @@ var start = function (cb) {
     form['user[email]'].value = user.email
     form['user[password]'].value = user.password
     form.submit()
-    console.log('First, create a new user')
+    console.log('First, created a new user')
   }, user)
 
   // star
@@ -78,19 +79,34 @@ var start = function (cb) {
   ca.thenOpenAndEvaluate(starUrl, function () {
     var form = document.forms[4]
     form.submit()
-    console.log('Then, star the repo')
+    console.log('Then, stared the repo')
   })
 
-  // follow
-  var folUrl = 'https://github.com/' + susername
-  ca.thenOpenAndEvaluate(folUrl, function () {
-    var form = document.forms[4]
-    form.submit()
-    console.log('Then, follow')
-  })
-
-  // profile
+  // profile page
   var proUrl = 'https://github.com/settings/profile'
+
+  // set avatar
+  ca.thenOpen(proUrl, function () {
+    var avatar = random.pick(avatars)
+    this.echo(avatar)
+    ca.page.uploadFile('#upload-profile-picture', avatar)
+  })
+
+  ca.then(function () {
+    ca.waitFor(function check () {
+      return this.evaluate(function () {
+        return document.querySelectorAll('.js-croppable-container').length > 0
+      })
+    }, function then () {
+      this.evaluate(function () {
+        document.querySelectorAll('.js-croppable-container')[0].submit()
+        console.log('Setted avatar success!')
+      }, function onTimeout (timeout) {
+        this.echo('Setted avatar failed..')
+      }, 60000)
+    })
+  })
+
   var profile = {
     name: faker.name.findName(),
     bio: faker.lorem.sentence(),
@@ -105,8 +121,16 @@ var start = function (cb) {
     form['user[profile_company]'].value = user.company
     form['user[profile_location]'].value = user.location
     form.submit()
-    console.log('Then, add profile')
+    console.log('Then, added profile')
   }, profile)
+
+  // follow
+  var folUrl = 'https://github.com/' + susername
+  ca.thenOpenAndEvaluate(folUrl, function () {
+    var form = document.forms[4]
+    form.submit()
+    console.log('Then, followed')
+  })
 
   // signout
   var signoutUrl = 'https://github.com/'
