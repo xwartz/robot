@@ -5,3 +5,6 @@
 @qq.com
 @126.com
 @fake.com
+@foxmail.com
+@live.com
+@168.com

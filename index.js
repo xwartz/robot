@@ -19,10 +19,10 @@ var snum = config.num
 
 // var password = config.password
 
-// var names = fs.read('fakenames.txt').toString().split('\n')
-// names.pop()
-// var mails = fs.read('email.txt').toString().split('\n')
-// mails.pop()
+var names = fs.read('fakenames.txt').toString().split('\n')
+names.pop()
+var mails = fs.read('email.txt').toString().split('\n')
+mails.pop()
 
 var ca = casper.create({
   verbose: true,
@@ -43,11 +43,11 @@ var start = function (cb) {
     return
   }
 
-  // var name = random.pick(names).toLowerCase() + random.hex(4)
-  // var email = name + random.pick(mails)
+  var emailName = random.pick(names).toLowerCase() + random.hex(4)
+  var email = emailName + random.pick(mails)
 
   var name = faker.internet.userName().replace(/[\.\s_-]/gi, '')
-  var email = faker.internet.email()
+  // var email = faker.internet.email()
   var password = faker.internet.password()
 
   var user = {
@@ -121,7 +121,9 @@ var start = function (cb) {
   })
 
   ca.run(function () {
-    sleep(random.integer(3, 10) * 1000)
+    var delay = random.integer(1, 6) * 1000
+    this.echo('Sleep ' + delay + 'ms', 'INFO')
+    sleep(delay)
     count++
     start()
   })
