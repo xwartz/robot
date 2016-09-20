@@ -16,7 +16,8 @@ var sleep = function (time) {
 var susername = config.username
 var srepo = config.repo
 var snum = config.num
-var avatars = config.avatars
+var avatarPath = config.avatarPath
+var avatars = fs.list(avatarPath)
 
 // var password = config.password
 
@@ -27,7 +28,16 @@ mails.pop()
 
 var ca = casper.create({
   verbose: true,
-  logLevel: 'info'
+  logLevel: 'info',
+  silentErrors: true,
+  // timeout: 60000,
+  stepTimeout: 60000,
+  onWaitTimeout: function () {
+    this.echo('Timeout')
+  },
+  onError: function (msg) {
+    this.echo(msg)
+  }
 })
 
 ca.on('remote.message', function (msg) {
@@ -86,26 +96,29 @@ var start = function (cb) {
   var proUrl = 'https://github.com/settings/profile'
 
   // set avatar
-  ca.thenOpen(proUrl, function () {
-    var avatar = random.pick(avatars)
-    this.echo(avatar)
-    ca.page.uploadFile('#upload-profile-picture', avatar)
-  })
-
-  ca.then(function () {
-    ca.waitFor(function check () {
-      return this.evaluate(function () {
-        return document.querySelectorAll('.js-croppable-container').length > 0
-      })
-    }, function then () {
-      this.evaluate(function () {
-        document.querySelectorAll('.js-croppable-container')[0].submit()
-        console.log('Setted avatar success!')
-      }, function onTimeout (timeout) {
-        this.echo('Setted avatar failed..')
-      }, 60000)
+  var avatar = avatars.length && avatars.pop()
+  if (avatar) {
+    ca.thenOpen(proUrl, function () {
+      var pa = avatarPath + avatar
+      this.echo(pa)
+      ca.page.uploadFile('#upload-profile-picture', pa)
     })
-  })
+
+    ca.then(function () {
+      ca.waitFor(function check () {
+        return this.evaluate(function () {
+          return document.querySelectorAll('.js-croppable-container').length > 0
+        })
+      }, function then () {
+        this.evaluate(function () {
+          document.querySelectorAll('.js-croppable-container')[0].submit()
+          console.log('Setted avatar success!')
+        }, function timeout () {
+          this.echo('Setted avatar failed..')
+        })
+      })
+    })
+  }
 
   var profile = {
     name: faker.name.findName(),
