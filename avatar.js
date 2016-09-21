@@ -9,7 +9,7 @@ var proUrl = 'https://github.com/settings/profile'
 module.exports = {
   start: function (casper) {
     var _this = this
-    // casper.then is important
+    // This then is important!
     casper.then(function () {
       _this.getImg(casper, function (avatar) {
         _this.setAvatar(casper, avatar)
@@ -43,7 +43,7 @@ module.exports = {
 
   getImg: function (casper, cb) {
     var types = ['image', 'avatar', 'imageUrl', 'abstract',
-                'animals', 'business', 'cats', 'city', 'food',
+                'animals', 'business', 'cats', 'city',
                 'nightlife', 'fashion', 'people', 'nature',
                 'sports', 'technics', 'transport']
 

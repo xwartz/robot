@@ -29,7 +29,7 @@ var pageStart = function (page) {
   star.start(page)
 
   // // follow
-  // follow.start(page)
+  follow.start(page)
 
   // // signout
   signout.start(page)
@@ -42,10 +42,10 @@ var ca = casper.create({
   timeout: 100 * 60 * 1000,
   stepTimeout: 5 * 60 * 1000,
   onWaitTimeout: function () {
-    this.echo('Time out')
+    this.echo('Time out', 'WARNING')
   },
   onError: function (msg) {
-    this.echo(msg)
+    this.echo(msg, 'ERROR')
   },
   pageSettings: {
     loadImages: false,
