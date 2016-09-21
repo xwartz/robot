@@ -14,10 +14,12 @@ mails.pop()
 
 module.exports = {
   start: function (casper) {
-    var user = this.initUser()
+    var user = this.getUser()
+
+    this.write(user)
 
     var signupUrl = 'https://github.com/join?source=header-home'
-    casper.start(signupUrl).thenEvaluate(function (user) {
+    casper.thenOpen(signupUrl).thenEvaluate(function (user) {
       var form = document.forms[1]
       form['user[login]'].value = user.name
       form['user[email]'].value = user.email
@@ -28,14 +30,16 @@ module.exports = {
   },
 
   write: function (user) {
+    console.log(user.name)
+    console.log(user.email)
     fs.write('usedname.txt', user.name + ' ' + user.email + ' ' + user.password + '\n', 'a+')
   },
 
-  initUser: function () {
-    var emailName = random.pick(names).toLowerCase() + random.hex(4)
-    var email = emailName + random.pick(mails)
-
-    var name = faker.internet.userName().replace(/[\.\s_-]/gi, '')
+  getUser: function () {
+    var prefix = random.pick(names).toLowerCase() + random.hex(4)
+    var email = prefix + random.pick(mails)
+    // var name = prefix
+    var name = faker.internet.userName().toLowerCase().replace(/[\.\s_-]/gi, '')
     // var email = faker.internet.email()
     var password = faker.internet.password()
 

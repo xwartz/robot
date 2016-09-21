@@ -12,28 +12,26 @@ var signout = require('./signout')
 
 var sleep = function (time) {
   var stop = new Date().getTime()
-  while (new Date().getTime() < stop + time) {
-    ;
-  }
+  while (new Date().getTime() < stop + time) {}
 }
 
 var pageStart = function (page) {
-  // sign up
+  // // sign up
   signup.start(page)
 
-  // set avatar
+  // // set avatar
   avatar.start(page)
 
-  // star
+  // // star
   star.start(page)
 
-  // set profile
-  profile.start(page)
-
-  // follow
+  // // follow
   follow.start(page)
 
-  // signout
+  // // set profile
+  profile.start(page)
+
+  // // signout
   signout.start(page)
 }
 
@@ -41,19 +39,25 @@ var ca = casper.create({
   verbose: true,
   logLevel: 'info',
   silentErrors: true,
-  // timeout: 60000,
-  stepTimeout: 60000,
+  timeout: 100 * 60 * 1000,
+  stepTimeout: 60 * 1000,
   onWaitTimeout: function () {
-    this.echo('Timeout')
+    this.echo('Time out')
   },
   onError: function (msg) {
     this.echo(msg)
+  },
+  pageSettings: {
+    loadImages: false,
+    loadPlugins: false
   }
 })
 
 ca.on('remote.message', function (msg) {
   this.echo(msg, 'COMMENT')
 })
+
+ca.start('')
 
 var count = 0
 var snum = config.num

@@ -4,13 +4,14 @@ var proUrl = 'https://github.com/settings/profile'
 
 module.exports = {
   start: function (casper) {
-    var profile = {
-      name: faker.name.findName(),
-      bio: faker.lorem.sentence(),
-      company: faker.company.companyName(),
-      location: faker.address.city()
-    }
+    var _this = this
+    casper.then(function () {
+      var profile = _this.getProfile()
+      _this.setProfile(casper, profile)
+    })
+  },
 
+  setProfile: function (casper, profile) {
     casper.thenOpenAndEvaluate(proUrl, function (user) {
       var form = document.forms[2]
       form['user[profile_name]'].value = user.name
@@ -20,5 +21,14 @@ module.exports = {
       form.submit()
       console.log('Then, added profile')
     }, profile)
+  },
+
+  getProfile: function () {
+    return {
+      name: faker.name.findName(),
+      bio: faker.lorem.sentence(),
+      company: faker.company.companySuffix(),
+      location: faker.address.city()
+    }
   }
 }
