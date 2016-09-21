@@ -1,5 +1,6 @@
 var fs = require('fs')
 var faker = require('faker')
+var random = require('random-js')()
 
 var avatarPath = fs.workingDirectory + '/avatar/'
 
@@ -41,10 +42,20 @@ module.exports = {
   },
 
   getImg: function (casper, cb) {
-    var url = faker.image.avatar()
-    var name = url.split('/').pop()
+    var types = ['image', 'avatar', 'imageUrl', 'abstract',
+                'animals', 'business', 'cats', 'city', 'food',
+                'nightlife', 'fashion', 'people', 'nature',
+                'sports', 'technics', 'transport']
 
-    var avatar = avatarPath + name
+    var type = random.pick(types)
+
+    var url = faker.image[type]()
+
+    // var name = url.split('/').pop()
+
+    // name = /(png|jpg|jpeg)/ig.test(name) ? name : name + '.jpg'
+
+    var avatar = avatarPath + 'avatar.jpg'
 
     casper.thenOpen(url, function () {
       this.download(url, avatar)

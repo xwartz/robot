@@ -1,18 +1,12 @@
 var faker = require('faker')
+var random = require('random-js')()
 
-var proUrl = 'https://github.com/settings/profile'
+var proUrl = 'https://github.com/settings/profile?xxxx'
 
 module.exports = {
   start: function (casper) {
-    var _this = this
-    casper.then(function () {
-      var profile = _this.getProfile()
-      _this.setProfile(casper, profile)
-    })
-  },
-
-  setProfile: function (casper, profile) {
-    casper.thenOpenAndEvaluate(proUrl, function (user) {
+    var profile = this.getProfile()
+    casper.thenOpen(proUrl).thenEvaluate(function (user) {
       var form = document.forms[2]
       form['user[profile_name]'].value = user.name
       form['user[profile_bio]'].value = user.bio
@@ -24,11 +18,23 @@ module.exports = {
   },
 
   getProfile: function () {
+    var nTypes = ['firstName', 'lastName', 'findName', 'prefix', 'suffix']
+    var nType = random.pick(nTypes)
+
+    var bioTypes = ['word', 'words', 'sentence', 'sentences', 'paragraph', 'text']
+    var bioType = random.pick(bioTypes)
+
+    var cTypes = ['suffixes', 'companyName', 'companySuffix', 'bs']
+    var cType = random.pick(cTypes)
+
+    var adTypes = ['city', 'cityPrefix', 'citySuffix', 'county', 'country']
+    var adType = random.pick(adTypes)
+
     return {
-      name: faker.name.findName(),
-      bio: faker.lorem.sentence(),
-      company: faker.company.companySuffix(),
-      location: faker.address.city()
+      name: faker.name[nType](),
+      bio: faker.lorem[bioType](),
+      company: faker.company[cType](),
+      location: faker.address[adType]()
     }
   }
 }

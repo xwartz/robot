@@ -1,5 +1,5 @@
 module.exports = {
-  username: 'xwartz',
-  repo: 'hexo-theme-nuna',
+  username: 'feibai',
+  repo: 'PupaFM',
   num: 1
 }

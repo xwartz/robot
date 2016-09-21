@@ -19,6 +19,9 @@ var pageStart = function (page) {
   // // sign up
   signup.start(page)
 
+  // // set profile
+  profile.start(page)
+
   // // set avatar
   avatar.start(page)
 
@@ -26,10 +29,7 @@ var pageStart = function (page) {
   star.start(page)
 
   // // follow
-  follow.start(page)
-
-  // // set profile
-  profile.start(page)
+  // follow.start(page)
 
   // // signout
   signout.start(page)
@@ -40,7 +40,7 @@ var ca = casper.create({
   logLevel: 'info',
   silentErrors: true,
   timeout: 100 * 60 * 1000,
-  stepTimeout: 60 * 1000,
+  stepTimeout: 5 * 60 * 1000,
   onWaitTimeout: function () {
     this.echo('Time out')
   },
