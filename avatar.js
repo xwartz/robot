@@ -1,6 +1,6 @@
 var fs = require('fs')
-var faker = require('faker')
-var random = require('random-js')()
+// var faker = require('faker')
+// var random = require('random-js')()
 
 var avatarPath = fs.workingDirectory + '/avatar/'
 
@@ -42,18 +42,17 @@ module.exports = {
   },
 
   getImg: function (casper, cb) {
-    var types = ['image', 'avatar', 'imageUrl', 'abstract',
-                'animals', 'business', 'cats', 'city',
-                'nightlife', 'fashion', 'people', 'nature',
-                'sports', 'technics', 'transport']
-
-    var type = random.pick(types)
-
-    var url = faker.image[type]()
-
-    // var name = url.split('/').pop()
-
-    // name = /(png|jpg|jpeg)/ig.test(name) ? name : name + '.jpg'
+    // var types = [
+    //   'avatar', 'image', 'abstract',
+    //   'animals', 'cats', 'city',
+    //   'fashion', 'people', 'nature',
+    //   'sports', 'technics', 'transport'
+    // ]
+    // var type = random.pick(types)
+    // var url = faker.image[type]()
+    // var url = 'http://lorempixel.com/200/200/'
+    // var url = 'http://loremflickr.com/200/200/?random'
+    var url = 'https://unsplash.it/200/200/?random'
 
     var avatar = avatarPath + 'avatar.jpg'
 

@@ -15,24 +15,11 @@ var sleep = function (time) {
   while (new Date().getTime() < stop + time) {}
 }
 
+var actions = [signup, star, profile, avatar, follow, signout]
 var pageStart = function (page) {
-  // // sign up
-  signup.start(page)
-
-  // // set profile
-  profile.start(page)
-
-  // // set avatar
-  avatar.start(page)
-
-  // // star
-  star.start(page)
-
-  // // follow
-  follow.start(page)
-
-  // // signout
-  signout.start(page)
+  actions.forEach(function (action) {
+    action.start(page)
+  })
 }
 
 var ca = casper.create({
@@ -41,6 +28,7 @@ var ca = casper.create({
   silentErrors: true,
   timeout: 100 * 60 * 1000,
   stepTimeout: 5 * 60 * 1000,
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2866.0 Safari/537.36',
   onWaitTimeout: function () {
     this.echo('Time out', 'WARNING')
   },
