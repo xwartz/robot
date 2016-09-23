@@ -1,10 +1,50 @@
-#!/bin/bash
-function run () {
-  count=`echo $* | egrep -o "\d+"`
-  for (( i = 0; i < $count; i++ ))
-  do
-    npm start
-  done
+#!/usr/bin/env node
+
+var inquirer = require('inquirer')
+var fs = require('fs')
+var execSync = require('child_process').execSync
+
+var sleep = function (time) {
+  var stop = new Date().getTime()
+  while (new Date().getTime() < stop + time) {}
 }
 
-run $1
+var questions = [
+  {
+    type: 'input',
+    name: 'username',
+    message: 'Input the username',
+    default: 'xwartz'
+  }, {
+    type: 'input',
+    name: 'repo',
+    message: 'Input the repo',
+    default: 'robot'
+  }, {
+    type: 'input',
+    name: 'count',
+    message: 'Input the count',
+    default: 1,
+    validate: function (value) {
+      var pass = /\d+/i.test(value)
+      if (pass) {
+        return true
+      }
+      return 'Please enter a valid number'
+    }
+  }
+]
+
+var ask = function () {
+  inquirer.prompt(questions).then(function (answers) {
+    var config = JSON.stringify(answers)
+    var count = answers.count
+    fs.writeFileSync('config.json', config)
+    for (var i = 0; i < count; i++) {
+      execSync('npm run start', { stdio: 'inherit' })
+    }
+    process.exit()
+  })
+}
+
+ask()

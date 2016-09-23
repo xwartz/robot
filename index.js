@@ -1,14 +1,11 @@
 var casper = require('casper')
 var random = require('random-js')()
-
-var config = require('./config')
-
-var signup = require('./signup')
-var avatar = require('./avatar')
-var star = require('./star')
-var profile = require('./profile')
-var follow = require('./follow')
-var signout = require('./signout')
+var signup = require('./src/signup')
+var avatar = require('./src/avatar')
+var star = require('./src/star')
+var profile = require('./src/profile')
+var follow = require('./src/follow')
+var signout = require('./src/signout')
 
 var sleep = function (time) {
   var stop = new Date().getTime()
@@ -47,29 +44,18 @@ ca.on('remote.message', function (msg) {
 
 ca.start('')
 
-var count = 0
-var snum = config.num
-
 var start = function (cb) {
-  if (count >= snum) {
-    console.log('Done!')
-    ca.exit()
-    process.exit()
-    return
-  }
-
   pageStart(ca)
 
   ca.on('exit', function () {
-    // exit
+    console.log('Done!')
   })
 
   ca.run(function () {
     var delay = random.integer(1, 6) * 1000
     this.echo('Sleep ' + delay + 'ms', 'INFO')
     sleep(delay)
-    count++
-    start()
+    ca.exit()
   })
 }
 

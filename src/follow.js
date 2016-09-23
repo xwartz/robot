@@ -1,4 +1,4 @@
-var config = require('./config')
+var config = require('../config.json')
 
 var folUrl = 'https://github.com/' + config.username
 

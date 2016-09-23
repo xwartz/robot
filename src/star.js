@@ -1,4 +1,4 @@
-var config = require('./config')
+var config = require('../config.json')
 
 var username = config.username
 var repo = config.repo
