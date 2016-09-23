@@ -2,12 +2,7 @@
 
 var inquirer = require('inquirer')
 var fs = require('fs')
-var execSync = require('child_process').execSync
-
-var sleep = function (time) {
-  var stop = new Date().getTime()
-  while (new Date().getTime() < stop + time) {}
-}
+var spawnSync = require('child_process').spawnSync
 
 var questions = [
   {
@@ -41,7 +36,7 @@ var ask = function () {
     var count = answers.count
     fs.writeFileSync('config.json', config)
     for (var i = 0; i < count; i++) {
-      execSync('npm run start', { stdio: 'inherit' })
+      spawnSync('npm', ['run start'], { stdio: [0, 1, 2], shell: true })
     }
     process.exit()
   })
