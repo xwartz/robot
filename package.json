@@ -1,6 +1,6 @@
 {
   "name": "github-robot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "This is a GitHub robot, just for fun.",
   "main": "index.js",
   "scripts": {
@@ -32,5 +32,13 @@
   },
   "engines": {
     "node": ">=4.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/xwartz/robot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xwartz/robot/issues"
+  },
+  "homepage": "https://github.com/xwartz/robot#readme"
 }
