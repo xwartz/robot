@@ -1,5 +1,5 @@
 module.exports = {
   username: 'xwartz',
   repo: 'robot',
-  num: 5
+  num: 1
 }

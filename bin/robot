@@ -1,0 +1,10 @@
+#!/bin/bash
+function run () {
+  count=`echo $* | egrep -o "\d+"`
+  for (( i = 0; i < $count; i++ ))
+  do
+    npm start
+  done
+}
+
+run $1
