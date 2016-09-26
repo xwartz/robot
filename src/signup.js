@@ -35,10 +35,9 @@ module.exports = {
   getUser: function () {
     var prefix = random.pick(names).toLowerCase() + random.hex(4)
     var email = prefix + random.pick(mails)
-    // var name = prefix
     var name = faker.internet.userName().toLowerCase().replace(/[\.\s_-]/gi, '')
-    // var email = faker.internet.email()
-    var password = faker.internet.password()
+    // var password = faker.internet.password()
+    var password = prefix
 
     // fix github password must has number
     password = /\d/gi.test(password) ? password : password + '1'
