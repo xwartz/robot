@@ -31,3 +31,4 @@ node_modules
 usedname
 avatar
 .DS_Store
+config/*.json

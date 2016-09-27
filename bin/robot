@@ -2,6 +2,7 @@
 
 var inquirer = require('inquirer')
 var fs = require('fs')
+var path = require('path')
 var spawnSync = require('child_process').spawnSync
 
 var questions = [
@@ -34,9 +35,15 @@ var ask = function () {
   inquirer.prompt(questions).then(function (answers) {
     var config = JSON.stringify(answers)
     var count = answers.count
-    fs.writeFileSync('config.json', config)
+    var cfg = path.resolve(__dirname, '../config/index.json')
+
+    fs.writeFileSync(cfg, config, { flag: 'w' })
+
+    // changes the current working directory
+    process.chdir(path.resolve(__dirname, '../'))
+
     for (var i = 0; i < count; i++) {
-      spawnSync('npm', ['run start'], { stdio: [0, 1, 2], shell: true })
+      spawnSync('npm', ['start'], { stdio: [0, 1, 2], shell: true })
     }
     process.exit()
   })
