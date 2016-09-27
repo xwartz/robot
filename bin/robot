@@ -2,6 +2,7 @@
 
 var inquirer = require('inquirer')
 var fs = require('fs')
+var path = require('path')
 var spawnSync = require('child_process').spawnSync
 
 var questions = [
@@ -34,9 +35,9 @@ var ask = function () {
   inquirer.prompt(questions).then(function (answers) {
     var config = JSON.stringify(answers)
     var count = answers.count
-    fs.writeFileSync('config.json', config)
+    fs.writeFileSync(path.join('./config', 'index.json'), config)
     for (var i = 0; i < count; i++) {
-      spawnSync('npm', ['run start'], { stdio: [0, 1, 2], shell: true })
+      spawnSync('casperjs', ['index.js'], { stdio: [0, 1, 2], shell: true })
     }
     process.exit()
   })
