@@ -22,7 +22,7 @@ module.exports = {
 
     casper.thenOpen(proUrl, function () {
       this.echo(avatar)
-      casper.page.uploadFile('#upload-profile-picture', avatar)
+      casper.page.uploadFile('input[type="file"]', avatar)
     })
 
     casper.then(function () {
@@ -36,7 +36,7 @@ module.exports = {
           console.log('Set avatar success!')
         }, function timeout () {
           this.echo('Set avatar failed..', 'COMMENT')
-        })
+        }, 10000)
       })
     })
   },

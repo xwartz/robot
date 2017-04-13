@@ -12,7 +12,7 @@ var sleep = function (time) {
   while (new Date().getTime() < stop + time) {}
 }
 
-var actions = [signup, star, profile, avatar, follow, signout]
+var actions = [signup, star, follow, profile, avatar, signout]
 var pageStart = function (page) {
   actions.forEach(function (action) {
     action.start(page)
