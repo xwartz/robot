@@ -8,7 +8,7 @@ module.exports = {
     var pf = this.getProfile()
 
     casper.thenOpen(proUrl).thenEvaluate(function (pf) {
-      var form = document.querySelectorAll('form[action*="/users/alexandrealeuschke"]')[0]
+      var form = document.querySelectorAll('form[action*="/users/"]')[0]
       form['user[profile_name]'].value = pf.name
       form['user[profile_bio]'].value = pf.bio
       form['user[profile_company]'].value = pf.company

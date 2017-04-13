@@ -22,7 +22,7 @@ module.exports = {
 
     casper.thenOpen(proUrl, function () {
       this.echo(avatar)
-      casper.page.uploadFile('#upload-profile-picture', avatar)
+      casper.page.uploadFile('.js-avatar-field', avatar)
     })
 
     casper.then(function () {
